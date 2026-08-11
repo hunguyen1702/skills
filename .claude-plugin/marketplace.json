@@ -1,0 +1,14 @@
+{
+  "name": "hungnguyen-skills",
+  "description": "Hung Nguyen's personal Claude Code / Codex skills and plugins",
+  "owner": {
+    "name": "Hung Nguyen"
+  },
+  "plugins": [
+    {
+      "name": "gkg",
+      "source": "./",
+      "description": "How to use the GitLab Knowledge Graph (gkg) CLI and its MCP tools for fast codebase search, definition lookup, and reference finding"
+    }
+  ]
+}

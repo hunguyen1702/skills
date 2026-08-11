@@ -1,0 +1,48 @@
+{
+  "skill_name": "gkg",
+  "evals": [
+    {
+      "id": 0,
+      "name": "find-callers-cold-start",
+      "prompt": "Using gkg, find all callers of the process_payment function in <dummy-project>",
+      "expected_output": "Detects gkg server not running / MCP tools not registered / project not indexed, does the precheck flow (register/start/index), then correctly identifies PaymentProcessor.run as the caller of process_payment.",
+      "files": [],
+      "assertions": [
+        "Checks whether gkg MCP tools are registered/available before assuming they work (registration check)",
+        "Starts the gkg server before trying to index or query (does not skip straight to search)",
+        "Indexes the target project before attempting the lookup, rather than assuming it's already indexed",
+        "If indexing via the gkg CLI, targets the parent directory of the repo (not the repo root itself) and verifies via manifest/list_projects that the project actually shows status indexed with nonzero definitions",
+        "Final answer correctly identifies PaymentProcessor.run (in main.py) as the caller of process_payment",
+        "Does not run gkg clean or gkg remove or claude mcp add for real"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "repo-map-cold-start",
+      "prompt": "Give me a repo map of <dummy-project> using gkg",
+      "expected_output": "Detects precheck not done, does register/start/index flow, then produces a repo map covering main.py and utils.py with their definitions.",
+      "files": [],
+      "assertions": [
+        "Checks whether gkg MCP tools are registered/available before assuming they work (registration check)",
+        "Starts the gkg server before trying to index or query",
+        "Indexes the target project before attempting the lookup",
+        "Final repo map covers both main.py and utils.py and lists their top-level functions/classes (greet, add, process_payment, charge_user, PaymentProcessor, double, format_currency)",
+        "Does not run gkg clean or gkg remove or claude mcp add for real"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "search-definitions-cold-start",
+      "prompt": "Search the codebase at <dummy-project> for anything related to 'charge' using gkg",
+      "expected_output": "Detects precheck not done, does register/start/index flow, then surfaces charge_user as relevant to 'charge'.",
+      "files": [],
+      "assertions": [
+        "Checks whether gkg MCP tools are registered/available before assuming they work (registration check)",
+        "Starts the gkg server before trying to index or query",
+        "Indexes the target project before attempting the lookup",
+        "Final answer surfaces charge_user (and reasonably process_payment) as relevant to 'charge'",
+        "Does not run gkg clean or gkg remove or claude mcp add for real"
+      ]
+    }
+  ]
+}
