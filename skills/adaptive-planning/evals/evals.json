@@ -1,0 +1,197 @@
+{
+  "skill_name": "adaptive-planning",
+  "evals": [
+    {
+      "id": 0,
+      "name": "broad-multi-outcome-routes-a",
+      "prompt": "Plan a product area with several independently deliverable outcomes across multiple subsystems.",
+      "expected_output": "Chooses epic decomposition, confirms Context–Task–Format, then creates only an epic and task board after approval.",
+      "files": [],
+      "assertions": [
+        "Routes to epic decomposition",
+        "Does not write before explicit confirmation",
+        "Produces exactly epic and task-board documents"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "bounded-one-session-routes-b",
+      "prompt": "Plan one bounded observable change that can be implemented and verified in one session.",
+      "expected_output": "Chooses direct story planning and creates a mutually linked story and implementation task after confirmation.",
+      "files": [],
+      "assertions": [
+        "Routes to direct story planning",
+        "Requires explicit confirmation",
+        "Produces exactly the two Route B documents"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "broad-reroutes-to-b",
+      "prompt": "Start planning a broad request, then treat the user's clarification as narrowing it to one bounded outcome.",
+      "expected_output": "Explains the reroute from epic decomposition to direct story planning and reconfirms before writing.",
+      "files": [],
+      "assertions": [
+        "Reroutes A to B",
+        "Requests confirmation again",
+        "Leaves no stale Route A artifacts"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "bounded-reroutes-to-a",
+      "prompt": "Start with an apparently bounded request, then incorporate clarification revealing multiple independent outcomes.",
+      "expected_output": "Explains the reroute to epic decomposition and reconfirms the revised artifact set.",
+      "files": [],
+      "assertions": [
+        "Reroutes B to A",
+        "Requests confirmation again",
+        "Creates only Route A artifacts"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "focused-ambiguity-interview",
+      "prompt": "Plan an export feature without choosing among materially different formats.",
+      "expected_output": "Asks one focused material question and recommends a default with a brief trade-off.",
+      "files": [],
+      "assertions": [
+        "Asks only about material ambiguity",
+        "Provides a recommended default",
+        "Does not create documents yet"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "confirmation-gate-both-routes",
+      "prompt": "Evaluate both a broad and a bounded planning request without approving document creation.",
+      "expected_output": "Presents Context–Task–Format but writes no artifacts for either route.",
+      "files": [],
+      "assertions": [
+        "Route A waits for confirmation",
+        "Route B waits for confirmation",
+        "No artifact is written"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "route-a-exact-output",
+      "prompt": "After confirming a broad multi-outcome plan, generate its artifacts.",
+      "expected_output": "Creates exactly one epic and one task board, with future units remaining summaries.",
+      "files": [],
+      "assertions": [
+        "Creates two files",
+        "Does not fully plan future units",
+        "Does not create story or implementation-task documents"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "route-a-board-contract",
+      "prompt": "Generate the task board for a confirmed epic decomposition.",
+      "expected_output": "Uses the six contracted columns and only needed/planned values.",
+      "files": [],
+      "assertions": [
+        "Uses ID, Planning unit, Outcome, Planning, Document, Notes",
+        "Uses only needed or planned",
+        "Omits ownership and implementation lifecycle fields"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "route-b-mutual-links",
+      "prompt": "Generate documents for a confirmed direct story plan.",
+      "expected_output": "Creates a story and implementation task that link to each other.",
+      "files": [],
+      "assertions": [
+        "Creates both Route B documents",
+        "Story links to task",
+        "Task links to story"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "unique-temporary-workspaces",
+      "prompt": "Run the same default planning request twice.",
+      "expected_output": "Uses two different mktemp-created workspaces under /tmp.",
+      "files": [],
+      "assertions": [
+        "Both outputs are under /tmp",
+        "Workspace paths differ",
+        "No guessed fixed path is reused"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "delivery-path-reporting",
+      "prompt": "Deliver a completed Route A planning package.",
+      "expected_output": "Reports every absolute artifact path and separately highlights the task board.",
+      "files": [],
+      "assertions": [
+        "All paths are absolute",
+        "All artifacts are listed",
+        "Task-board path is highlighted"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "default-repository-isolation",
+      "prompt": "Plan from sources in a Git repository using the default output destination.",
+      "expected_output": "Writes only to a fresh /tmp workspace and leaves Git status and diffs unchanged.",
+      "files": [],
+      "assertions": [
+        "Does not write to the input repository",
+        "Git status is unchanged",
+        "Git diff is unchanged"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "explicit-repository-output",
+      "prompt": "Write the confirmed plan into a repository destination explicitly requested by the user.",
+      "expected_output": "Reads local instructions and writes only to the requested destination.",
+      "files": [],
+      "assertions": [
+        "Recognizes explicit repository authorization",
+        "Reads applicable local instructions",
+        "Preserves unrelated work"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "structured-self-review-fallback",
+      "prompt": "Complete planning where no independent reviewer is available.",
+      "expected_output": "Runs the structured review checklist and discloses that independent review was unavailable.",
+      "files": [],
+      "assertions": [
+        "Performs structured self-review",
+        "Discloses the limitation",
+        "Checks route, links, decisions, leakage, and mutation"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "source-leakage-rejection",
+      "prompt": "Review generated planning skill artifacts containing unrelated source-repository identifiers.",
+      "expected_output": "Rejects the artifacts until identifying source details are removed.",
+      "files": [],
+      "assertions": [
+        "Detects unrelated names and paths",
+        "Does not ship source-specific concepts or IDs",
+        "Rechecks the cleaned output"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "cross-runtime-parity",
+      "prompt": "Apply adaptive planning to the same bounded request in Claude and Codex.",
+      "expected_output": "Both runtimes choose the same route, confirmation gate, and document structure.",
+      "files": [],
+      "assertions": [
+        "Route choice is equivalent",
+        "Document structure is equivalent",
+        "Only runtime-specific interaction wording differs"
+      ]
+    }
+  ]
+}
