@@ -111,7 +111,7 @@
       "prompt": "Complete planning where no independent reviewer is available.",
       "expected_output": "Runs the structured review checklist and discloses that independent review was unavailable.",
       "files": [],
-      "assertions": ["Performs structured self-review", "Discloses the limitation", "Checks route, links, decisions, leakage, and mutation"]
+      "assertions": ["Performs structured self-review because delegation is unavailable", "Discloses the limitation", "Checks route, links, decisions, leakage, and mutation"]
     },
     {
       "id": 14,
@@ -128,6 +128,22 @@
       "expected_output": "Both runtimes choose the same route, confirmation gate, and document structure.",
       "files": [],
       "assertions": ["Route choice is equivalent", "Document structure is equivalent", "Only runtime-specific interaction wording differs"]
+    },
+    {
+      "id": 16,
+      "name": "required-independent-review",
+      "prompt": "Complete a planning draft where fresh sub-agent delegation is available and authorized.",
+      "expected_output": "Delegates the completed draft to a fresh independent sub-agent before delivery.",
+      "files": [],
+      "assertions": ["Delegates the completed draft before delivery", "Uses a fresh independent sub-agent", "Does not skip delegation because self-review is faster"]
+    },
+    {
+      "id": 17,
+      "name": "unclear-review-authorization",
+      "prompt": "Complete a planning draft where sub-agent delegation is available but the user has not authorized it.",
+      "expected_output": "Asks the user whether sub-agent review is authorized and does not infer permission or deliver the draft while waiting.",
+      "files": [],
+      "assertions": ["Asks the user for authorization", "Does not infer authorization", "Does not delegate, substitute self-review, or deliver before the user answers"]
     }
   ]
 }

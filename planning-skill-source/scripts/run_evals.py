@@ -134,7 +134,19 @@ def evaluate(case: dict[str, object], temp: Path) -> None:
         require("repository output" in normalized and "explicitly requests" in normalized
                 and "local instructions" in normalized, case_id)
     elif case_id == "review-fallback":
-        require("structured self-review" in workflow.lower() and "limitation" in workflow.lower(), case_id)
+        normalized = " ".join(workflow.lower().split())
+        require("structured self-review only when delegation is unavailable or the user"
+                in normalized and "explicitly disallows" in normalized
+                and "limitation" in normalized, case_id)
+    elif case_id == "required-independent-review":
+        normalized = " ".join(workflow.lower().split())
+        require("after completing the draft and before delivery" in normalized
+                and "fresh independent sub-agent" in normalized
+                and "do not skip delegation" in normalized, case_id)
+    elif case_id == "unclear-review-authorization":
+        normalized = " ".join(workflow.lower().split())
+        require("authorization is unclear, ask the user" in normalized
+                and "rather than inferring permission" in normalized, case_id)
     elif case_id == "static-leakage-scan":
         injected = temp / case_id
         shutil.copytree(SKILL, injected)
@@ -157,7 +169,7 @@ def evaluate(case: dict[str, object], temp: Path) -> None:
 def main() -> int:
     cases = json.loads((SOURCE / "evals/cases.json").read_text(encoding="utf-8"))["cases"]
     ids = [case["id"] for case in cases]
-    require(len(cases) == 16 and len(set(ids)) == 16, "matrix must contain 16 unique cases")
+    require(len(cases) == 18 and len(set(ids)) == 18, "matrix must contain 18 unique cases")
     with tempfile.TemporaryDirectory(prefix="adaptive-planning-matrix-", dir="/tmp") as temporary:
         for case in cases:
             evaluate(case, Path(temporary))

@@ -18,6 +18,9 @@ Read and follow these canonical references in order:
 4. [Document formats](references/document-formats.md) for the confirmed route.
 
 Follow applicable local instructions before an explicitly requested repository
-write. Use independent review when the runtime provides delegation and it is
-appropriate and authorized. Otherwise perform and disclose the structured
-self-review defined by the workflow.
+write. After completing the draft, delegate it to a fresh independent sub-agent
+before delivery whenever delegation is available and authorized. Do not skip
+delegation merely because self-review is faster. If delegation is available but
+authorization is unclear, ask the user rather than inferring permission. Use
+and disclose the structured self-review only when delegation is unavailable or
+the user explicitly disallows it.

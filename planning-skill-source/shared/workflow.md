@@ -51,18 +51,21 @@ from the requirement, not identifiers copied from unrelated source material.
 
 ## 4. Review
 
-After each confirmed material decision, prefer an independent reviewer when
-delegation is available, appropriate, and authorized. Give the reviewer the
-requirement and draft, not the intended verdict. Review:
+After completing the draft and before delivery, delegate it to a fresh
+independent sub-agent whenever delegation is available and authorized. Do not
+skip delegation merely because self-review is faster. If delegation is
+available but authorization is unclear, ask the user rather than inferring
+permission. Give the reviewer the requirement and draft, not the intended
+verdict. Review:
 
 - direction clarity and testability;
 - functional and non-functional acceptance coverage;
 - verification quality and references;
 - artifact completeness and links.
 
-Continue interviewing only for a meaningful blocker. If independent review is
-unavailable, perform the same checklist as a structured self-review and state
-that limitation in the delivery.
+Continue interviewing only for a meaningful blocker. Use the same checklist as
+a structured self-review only when delegation is unavailable or the user
+explicitly disallows it, and state that limitation in the delivery.
 
 Before delivery, verify:
 
