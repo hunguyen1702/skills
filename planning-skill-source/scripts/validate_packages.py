@@ -90,8 +90,9 @@ def validate_claude_metadata() -> None:
         fail("Claude plugin metadata is incomplete")
     if plugin["name"] != "hungnguyen-skills" or not NAME.fullmatch(plugin["name"]):
         fail("root plugin identity must be hungnguyen-skills")
-    if not re.fullmatch(r"\d+\.\d+\.\d+", plugin["version"]):
-        fail("Claude plugin version is not strict semver")
+    version_pattern = r"\d+\.\d+\.\d+(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?"
+    if not re.fullmatch(version_pattern, plugin["version"]):
+        fail("Claude plugin version is not semver")
     if not isinstance(plugin["author"], dict) or not plugin["author"].get("name"):
         fail("Claude plugin author is invalid")
 
