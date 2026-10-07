@@ -1,6 +1,0 @@
-interface:
-  display_name: "Adaptive Planning"
-  short_description: "Route requirements into confirmed plans"
-  default_prompt: "Use $adaptive-planning to turn this requirement into the right planning artifacts."
-policy:
-  allow_implicit_invocation: true
