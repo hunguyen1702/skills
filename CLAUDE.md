@@ -1,22 +1,25 @@
-# CLAUDE.md
+This repo is the set of skills I use in daily work, currently mostly for software engineering. Claude Code and Codex are the two supported agents; other agents may work, but nothing here is tuned for them. Both agents install the repo from its local directory as the `hungnguyen-skills` plugin. Codex reads `.claude-plugin/` directly, so there is no `.codex-plugin/`.
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Skill files
 
-## What this repo is
+Every skill has a `SKILL.md` and an `agents/openai.yaml` (Codex metadata). Both schemas still change, so look up the current fields in the Claude Code and Codex skill docs instead of copying an older skill.
 
-`hungnguyen-skills` — a Claude Code plugin marketplace (`.claude-plugin/marketplace.json`) publishing personal Claude Code / Codex skills and plugins.
+A user-invoked skill (reachable only when the human types its name) sets `disable-model-invocation: true` in `SKILL.md` and `policy.allow_implicit_invocation: false` in `agents/openai.yaml`. Set both or neither: with only one, the skill stays auto-invocable in the other agent without any error.
 
-## Structure
+## Writing skill bodies
 
-- `.claude-plugin/marketplace.json` — marketplace manifest listing all plugins. Each entry: `name`, `source` (path to plugin dir), `description`.
-- `.claude-plugin/plugin.json` — metadata (`name`, `description`, `version`, `author`) for the single multi-skill plugin at repo root.
-- `skills/<skill-name>/` — one directory per skill.
-  - `SKILL.md` — the skill itself: YAML frontmatter (`name`, `description`) + markdown body with instructions. The `description` is what triggers the skill's use, so it must be specific about when to invoke it (keywords, task shapes, explicit non-triggers).
-  - `evals/evals.json` — eval cases for the skill.
-  - `openai.yaml` — OpenAI-compatible export of the skill, if applicable.
+Skill bodies must run unchanged on both agents, so describe behaviour, not one agent's tool names:
 
-## Adding or editing a skill
+- Capabilities both agents have, like web search or fetching a URL, are named as capabilities: "use your web fetch capability to read the docs".
+- To ask the user something, say so and give the question format. Do not name an agent-specific question tool.
+- To hand off to another skill, write `Call the Skill tool with "<name>"`. A `/name` mention is Claude Code syntax that Codex may read as plain text, and reading another skill's files by relative path breaks once the plugin is copied into an agent's cache.
+- Any step that dispatches a subagent says to start it with a fresh context window. Codex forks the parent conversation by default, which defeats the point of an independent subagent.
 
-- New skill: create `skills/<name>/SKILL.md` with frontmatter `name` + `description`; all root `skills/` ship together in the `hungnguyen-skills` plugin.
-- `description` field is load-bearing — it's the only thing used to decide whether the skill fires for a given user request. Write it to include trigger phrases and explicit scope boundaries (see `skills/gkg/SKILL.md` for the pattern: golden-rule check sequence, CLI/MCP tool tables, explicit gotchas called out inline).
-- Skill bodies favor dense reference tables (commands/flags/params) over prose, and call out non-obvious gotchas explicitly (e.g. a flag that silently no-ops instead of erroring).
+## Releasing a change
+
+Both agents cache the installed plugin by `version`, so a change without a bump never reaches them. In the same change that adds, edits, or removes a skill:
+
+- Bump `version` in `.claude-plugin/plugin.json`: patch for edits to an existing skill, minor for a new skill, major for removing or renaming one (commit as `feat!`).
+- Update the skill list in `README.md`.
+
+After editing either manifest in `.claude-plugin/`, run `claude plugin validate .`. Skip `--strict`: it fails only on the missing icon, which matters for public marketplace listings, not this private plugin.

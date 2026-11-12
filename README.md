@@ -1,32 +1,27 @@
 # hungnguyen-skills
 
-Hung Nguyen's personal Claude Code / Codex skills and plugins.
+The skills I use in daily work, mostly for software engineering. Built for Claude Code and Codex; other agents may load them, but are not tested.
 
 ## Install
 
-```
-/plugin marketplace add hungnguyen/skills
-```
+Both agents install from a local clone. Replace `<path>` with the clone's absolute path.
 
-(or whatever remote path this repo lives at)
+Claude Code:
 
-Then install a plugin:
-
-```
-/plugin install hungnguyen-skills@hungnguyen-skills
+```bash
+claude plugin marketplace add <path>
+claude plugin install hungnguyen-skills@hungnguyen-skills
 ```
 
-## Contents
+Codex:
 
-| Plugin | Description |
-|---|---|
-| `gkg` | How to use the GitLab Knowledge Graph (gkg) CLI and its MCP tools for fast codebase search, definition lookup, and reference finding |
+```bash
+codex plugin marketplace add <path>
+codex plugin add hungnguyen-skills@hungnguyen-skills
+```
 
-## Structure
+Both agents cache the plugin by version. After pulling a new version, run `claude plugin update hungnguyen-skills@hungnguyen-skills` for Claude Code, and reinstall with `codex plugin add` for Codex.
 
-- `.claude-plugin/marketplace.json` — marketplace manifest, lists all plugins.
-- `.claude-plugin/plugin.json` — metadata for the single multi-skill plugin at repo root.
-- `skills/<skill-name>/SKILL.md` — skill instructions (frontmatter `name` + `description`, then body).
-- `skills/<skill-name>/evals/evals.json` — eval cases for the skill.
+## Skills
 
-See `CLAUDE.md` (symlinked as `AGENTS.md`) for guidance on adding or editing skills.
+- [`gkg`](skills/gkg/SKILL.md): search definitions, find references, and map a repo with the GitLab Knowledge Graph CLI and MCP tools.

@@ -8,7 +8,7 @@
     {
       "name": "hungnguyen-skills",
       "source": "./",
-      "description": "Personal collection including gkg"
+      "description": "Daily-use skills for software engineering, built for Claude Code and Codex"
     }
   ]
 }

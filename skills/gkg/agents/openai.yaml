@@ -1,0 +1,3 @@
+interface:
+  display_name: "gkg"
+  short_description: "Search definitions and references with the GitLab Knowledge Graph."
