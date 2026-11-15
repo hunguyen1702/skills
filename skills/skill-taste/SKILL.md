@@ -10,13 +10,15 @@ Improve one existing skill without losing what already works. Use `<skill-taste>
 
 ## 1. Find the target and goal
 
-Derive the skill path and requested change from the invocation and conversation. If either is unclear, ask for the exact skill path and what should change.
+Derive the skill path and requested change from the invocation and conversation. If the path is unclear, ask for it.
 
 Read the target skill completely, including references and scripts that matter to the request. Identify its target agents from metadata and folder location. Record whether it is model-invoked: Claude Code uses `disable-model-invocation: true`; Codex uses `policy.allow_implicit_invocation: false` in `agents/openai.yaml`.
 
+Interview the user until you understand what should change and why. The goal is the fullest understanding of their idea. Work in rounds: ask every question whose prerequisites are settled, numbered, each with your recommended answer, then wait. Recompute the open questions from the answers and ask the next round. Look up facts yourself; put decisions to the user. When nothing is left open, recap only what the user confirmed, with a per-file plan of changes, and wait for their go-ahead before editing.
+
 Choose the path that matches the user's goal:
 - **Edit**: the user already knows what to change.
-- **Improve**: the user wants it better but has no concrete change. Ask what failed: wrong output, missed steps, slow or wasteful work, poor triggering, or hard-to-maintain instructions. Propose specific changes before editing.
+- **Improve**: the user wants it better but has no concrete change. Ask what failed: wrong output, missed steps, slow or wasteful work, poor triggering, or hard-to-maintain instructions.
 - **Trigger only**: the user wants better automatic invocation. Skip to trigger evaluation.
 
 ## 2. Change the skill

@@ -10,15 +10,11 @@ Build one new skill that works on every agent the user targets. This skill only 
 
 `<skill-cook>` below means the folder containing this file.
 
-## 1. Capture intent
+## 1. Reach a shared understanding
 
-Start from the message the user sent with the invocation and from the conversation so far. Work out what capability the skill gives an agent: what the agent can do with it that it could not do well before. If that is still unclear, ask the user before anything else.
+Interview the user until you understand what skill they want and how it should work. The goal is the fullest understanding of their idea. Work in rounds: ask every question whose prerequisites are settled, numbered, each with your recommended answer, then wait. Recompute the open questions from the answers and ask the next round. Look up facts yourself; put decisions to the user. When nothing is left open, recap only what the user confirmed and wait for their go-ahead before scaffolding.
 
-Build every later decision from this intent. Infer what you can, ask only what you cannot.
-
-## 2. Settle the three fixed decisions
-
-Ask about each one the intent leaves open, all in one message, each with your recommended answer:
+## 2. Decisions the interview must settle
 
 1. **Location**: global (all projects), project (this repo only), the plugin repo it belongs to, or another path.
 2. **Invocation**: the agent loads it on its own when a task matches, or only the user invokes it by name. For model-invoked skills, also ask when it should and should not trigger.
