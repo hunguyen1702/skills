@@ -1,0 +1,5 @@
+interface:
+  display_name: "Dig In"
+  short_description: "Dig into a topic at your level with a structured report"
+policy:
+  allow_implicit_invocation: false
