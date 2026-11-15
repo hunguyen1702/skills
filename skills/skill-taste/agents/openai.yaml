@@ -1,0 +1,5 @@
+interface:
+  display_name: "Skill Taste"
+  short_description: "Edit, improve, and evaluate an existing skill"
+policy:
+  allow_implicit_invocation: false
