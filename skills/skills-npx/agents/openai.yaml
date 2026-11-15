@@ -1,0 +1,5 @@
+interface:
+  display_name: "Skills Npx"
+  short_description: "Install or remove skills with npx skills"
+policy:
+  allow_implicit_invocation: false
