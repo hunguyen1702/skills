@@ -25,3 +25,4 @@ Both agents cache the plugin by version. After pulling a new version, run `claud
 ## Skills
 
 - [`gkg`](skills/gkg/SKILL.md): search definitions, find references, and map a repo with the GitLab Knowledge Graph CLI and MCP tools.
+- [`skill-cook`](skills/skill-cook/SKILL.md): create a new skill for Claude Code, Codex, or both, from scaffold to validation. User-invoked.
