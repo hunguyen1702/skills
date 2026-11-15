@@ -13,8 +13,6 @@ Skill bodies must run unchanged on both agents, so describe behaviour, not one a
 - Capabilities both agents have, like web search or fetching a URL, are named as capabilities: "use your web fetch capability to read the docs".
 - To ask the user something, say so and give the question format. Do not name an agent-specific question tool.
 - To hand off to another skill, write `Call the Skill tool with "<name>"`. A `/name` mention is Claude Code syntax that Codex may read as plain text, and reading another skill's files by relative path breaks once the plugin is copied into an agent's cache.
-- Any step that dispatches a subagent says to start it with a fresh context window. Codex forks the parent conversation by default, which defeats the point of an independent subagent.
-
 ## Releasing a change
 
 Both agents cache the installed plugin by `version`, so a change without a bump never reaches them. In the same change that adds, edits, or removes a skill:

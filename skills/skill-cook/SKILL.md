@@ -12,7 +12,7 @@ Build one new skill that works on every agent the user targets. This skill only 
 
 ## 1. Reach a shared understanding
 
-Interview the user until you understand what skill they want and how it should work. The goal is the fullest understanding of their idea. Work in rounds: ask every question whose prerequisites are settled, numbered, each with your recommended answer, then wait. Recompute the open questions from the answers and ask the next round. Look up facts yourself; put decisions to the user. When nothing is left open, recap only what the user confirmed and wait for their go-ahead before scaffolding.
+Call the Skill tool with "grilling" and interview the user until you understand what skill they want and how it should work. Recap only what the user confirmed and wait for their go-ahead before scaffolding.
 
 ## 2. Decisions the interview must settle
 

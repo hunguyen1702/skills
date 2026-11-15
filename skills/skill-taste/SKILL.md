@@ -14,7 +14,7 @@ Derive the skill path and requested change from the invocation and conversation.
 
 Read the target skill completely, including references and scripts that matter to the request. Identify its target agents from metadata and folder location. Record whether it is model-invoked: Claude Code uses `disable-model-invocation: true`; Codex uses `policy.allow_implicit_invocation: false` in `agents/openai.yaml`.
 
-Interview the user until you understand what should change and why. The goal is the fullest understanding of their idea. Work in rounds: ask every question whose prerequisites are settled, numbered, each with your recommended answer, then wait. Recompute the open questions from the answers and ask the next round. Look up facts yourself; put decisions to the user. When nothing is left open, recap only what the user confirmed, with a per-file plan of changes, and wait for their go-ahead before editing.
+Call the Skill tool with "grilling" and interview the user until you understand what should change and why. Recap only what the user confirmed, with a per-file plan of changes, and wait for their go-ahead before editing.
 
 Choose the path that matches the user's goal:
 - **Edit**: the user already knows what to change.
