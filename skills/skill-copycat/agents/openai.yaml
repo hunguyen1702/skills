@@ -1,0 +1,5 @@
+interface:
+  display_name: "Skill Copycat"
+  short_description: "Steal distinctive techniques from skills or articles"
+policy:
+  allow_implicit_invocation: false
