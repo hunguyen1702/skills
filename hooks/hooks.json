@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'better-talk is active. Load the better-talk skill now and follow its rules for the whole session.'",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'better-talk active: follow the better-talk rules already loaded; if they are no longer in your context, load the better-talk skill.'",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
