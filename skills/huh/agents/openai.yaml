@@ -1,0 +1,5 @@
+interface:
+  display_name: "Huh"
+  short_description: "Explain again what you did not understand, simply"
+policy:
+  allow_implicit_invocation: false
