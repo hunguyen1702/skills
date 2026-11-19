@@ -1,6 +1,6 @@
 ---
 name: skill-cook
-description: Create a new skill for one or more coding agents (Claude Code, Codex) from your intent. It asks where the skill lives, who invokes it, and which agents it targets, then scaffolds, writes and checks it.
+description: Create a new skill for one or more coding agents (Claude Code, Codex, Pi) from your intent. It asks where the skill lives, who invokes it, and which agents it targets, then scaffolds, writes and checks it.
 disable-model-invocation: true
 ---
 
@@ -12,13 +12,13 @@ Build one new skill that works on every agent the user targets. This skill only 
 
 ## 1. Reach a shared understanding
 
-Call the Skill tool with "grilling" and interview the user until you understand what skill they want and how it should work. Recap only what the user confirmed and wait for their go-ahead before scaffolding.
+Load the "grilling" skill and interview the user until you understand what skill they want and how it should work. Recap only what the user confirmed and wait for their go-ahead before scaffolding.
 
 ## 2. Decisions the interview must settle
 
 1. **Location**: global (all projects), project (this repo only), the plugin repo it belongs to, or another path.
 2. **Invocation**: the agent loads it on its own when a task matches, or only the user invokes it by name. For model-invoked skills, also ask when it should and should not trigger.
-3. **Agents**: list the supported agents from `<skill-cook>/references/agents.md` (currently `claude-code`, `codex`) and offer `all`.
+3. **Agents**: list the supported agents from `<skill-cook>/references/agents.md` (currently `claude-code`, `codex`, `pi`) and offer `all`.
 
 Map the answers to a folder with the tables in `<skill-cook>/references/agents.md`:
 - One agent: that agent's folder for the chosen scope.
@@ -66,7 +66,9 @@ Replace every placeholder. Follow these standards:
 **Cross-agent body** (when targeting more than one agent):
 - Describe capabilities instead of tool names. "Ask the user", "use your web search capability".
 - Any step that dispatches a subagent says to start it with a fresh context window. Some agents fork the parent conversation by default.
-- Hand off to another skill with `Call the Skill tool with "<name>"`. Do not read another skill's files by path.
+- Hand off to another skill with `Load the "<name>" skill`. Do not read another skill's files by path.
+- When Pi is a target, give every step that needs subagents, web search, or a question tool a way to proceed without it, such as doing the work inline. Pi ships only read, bash, edit, and write.
+- When the skill needs always-on behaviour (a Claude Code hook) and Pi is a target, tell the user that Pi needs a matching extension in the package's `extensions/` folder.
 
 **Resources**:
 - `scripts/`: code the agent would otherwise rewrite every run, or steps that must be deterministic.

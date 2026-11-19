@@ -1,5 +1,5 @@
 interface:
   display_name: "Skill Cook"
-  short_description: "Create a new skill for Claude Code, Codex, or both"
+  short_description: "Create a new skill for Claude Code, Codex, or Pi"
 policy:
   allow_implicit_invocation: false

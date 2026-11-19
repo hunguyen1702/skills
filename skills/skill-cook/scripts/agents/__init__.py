@@ -4,9 +4,9 @@ To support a new agent: add a module next to these and one entry below,
 then add its sources to references/agents.md.
 """
 
-from . import claude_code, codex
+from . import claude_code, codex, pi
 
-AGENTS = {"claude-code": claude_code, "codex": codex}
+AGENTS = {"claude-code": claude_code, "codex": codex, "pi": pi}
 
 
 def select(spec):

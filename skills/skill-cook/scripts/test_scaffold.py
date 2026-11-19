@@ -69,6 +69,12 @@ with tempfile.TemporaryDirectory() as tmp:
     assert not (root / "solo" / "agents").exists()
     assert "disable-model-invocation" not in (root / "solo" / "SKILL.md").read_text()
 
+    # pi-only, user-invoked: same frontmatter key as Claude Code, no metadata file
+    code, _ = run(scaffold.main, "pi-solo", "--path", str(root), "--agent", "pi", "--user-invoked")
+    assert code == 0
+    assert "disable-model-invocation: true" in (root / "pi-solo" / "SKILL.md").read_text()
+    assert not (root / "pi-solo" / "agents").exists()
+
     # bad input is rejected
     for argv in (["Bad_Name", "--path", tmp, "--agent", "codex"], ["ok", "--path", tmp, "--agent", "cursor"]):
         try:

@@ -41,3 +41,25 @@ Facts to check against the source:
 - Invocation: `policy.allow_implicit_invocation: false` in `agents/openai.yaml` hides the skill from the model. Users can still call it explicitly with `$name`.
 - Metadata file: `agents/openai.yaml`, holding `interface`, `dependencies` and `policy`.
 - `SKILL.md` frontmatter: only `name` and `description` are read. Codex ignores keys meant for other agents.
+
+## pi
+
+Sources:
+- Docs ship with the install: run `pi --help`, then read `docs/skills.md`, `docs/packages.md`, and `docs/extensions.md` in the `@earendil-works/pi-coding-agent` package folder (`readlink -f "$(which pi)"` leads to it).
+- Source of truth when the docs are silent: https://github.com/earendil-works/pi, `packages/coding-agent`. Read `src/core/skills.ts` (frontmatter) and `src/core/package-manager.ts` (discovery).
+
+Skill folders:
+
+| Scope | Path |
+|---|---|
+| global | `~/.pi/agent/skills/<name>/` or `~/.agents/skills/<name>/` |
+| project | `<repo>/.pi/skills/<name>/` or `<repo>/.agents/skills/<name>/` |
+| plugin | `<package>/skills/<name>/`, installed with `pi install <path-or-git-url>` |
+
+Facts to check against the docs:
+- Invocation: `disable-model-invocation: true` hides the skill from the model, the same key as Claude Code. Users call it with `/skill:<name>`.
+- Metadata file: none. Pi follows the Agent Skills spec and reads `SKILL.md` frontmatter only.
+- Pi reads `.agents/skills/`, so a skill shared with Codex there needs no symlink for Pi.
+- Name collisions keep the first skill found and print a warning; check for a same-named skill in `~/.agents/skills/`.
+- Built-in tools are read, bash, edit, and write. Subagents, web search, and question tools exist only through extensions.
+- Pi does not read Claude Code hooks. Always-on behaviour needs an extension in the package's `extensions/` folder.

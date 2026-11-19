@@ -1,6 +1,6 @@
 ---
 name: skill-taste
-description: Edit, improve, and evaluate an existing skill for Claude Code, Codex, or both. It can test output quality and description triggering before you keep the change.
+description: Edit, improve, and evaluate an existing skill for Claude Code, Codex, Pi, or any mix. It can test output quality and description triggering before you keep the change.
 disable-model-invocation: true
 ---
 
@@ -12,9 +12,9 @@ Improve one existing skill without losing what already works. Use `<skill-taste>
 
 Derive the skill path and requested change from the invocation and conversation. If the path is unclear, ask for it.
 
-Read the target skill completely, including references and scripts that matter to the request. Identify its target agents from metadata and folder location. Record whether it is model-invoked: Claude Code uses `disable-model-invocation: true`; Codex uses `policy.allow_implicit_invocation: false` in `agents/openai.yaml`.
+Read the target skill completely, including references and scripts that matter to the request. Identify its target agents from metadata and folder location. Record whether it is model-invoked: Claude Code and Pi use `disable-model-invocation: true`; Codex uses `policy.allow_implicit_invocation: false` in `agents/openai.yaml`. A skill inside a Pi package (a folder with `skills/` installed by `pi install`) targets Pi too; check whether its hooks have a matching extension in `extensions/`.
 
-Call the Skill tool with "grilling" and interview the user until you understand what should change and why. Recap only what the user confirmed, with a per-file plan of changes, and wait for their go-ahead before editing.
+Load the "grilling" skill and interview the user until you understand what should change and why. Recap only what the user confirmed, with a per-file plan of changes, and wait for their go-ahead before editing.
 
 Choose the path that matches the user's goal:
 - **Edit**: the user already knows what to change.
@@ -32,7 +32,7 @@ cp -R <skill-path> ~/.cache/skill-taste/<skill-name>/skill-snapshot
 
 When you need current agent rules, start a subagent with a fresh context window and have it read the official docs or source for that agent. Use the report over memory.
 
-Apply `<skill-taste>/references/improving.md` while editing.
+Apply `<skill-taste>/references/improving.md` while editing. When Pi is a target, keep every step working with only read, bash, edit, and write: Pi has no subagents, web search, or question tool unless an extension adds them.
 
 ## 3. Evaluate output quality
 
@@ -78,6 +78,8 @@ Run this only for model-invoked skills.
 5. Show the user the old and new description with scores for each agent.
 
 Codex detection is a proxy: it counts a `command_execution` that reads the probe `SKILL.md`. Report it as such.
+
+`run_trigger.py` has no Pi runner yet. For a Pi target, tell the user that Pi triggering is unmeasured; Claude Code results are the closest stand-in, since both agents route on the same `description`.
 
 ## 5. Finish
 
