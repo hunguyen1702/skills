@@ -1,7 +1,6 @@
 ---
 name: write-agent-instructions
-description: Write or revamp a repo's agent instructions file (AGENTS.md or CLAUDE.md).
-disable-model-invocation: true
+description: Write, revamp, or add rules to a repo's agent instructions files (AGENTS.md, CLAUDE.md, their .local.md variants, docs/agents/). Use when the user asks to create, clean up, or refactor these files, or when you are about to add a rule, convention, or "remember this" note to one of them. Not for writing skills, READMEs, or other project docs.
 ---
 
 # Write Agent Instructions
@@ -33,6 +32,7 @@ Apply every rule to every line you write or keep.
 
 Find the repo's instructions files (`AGENTS.md`, `CLAUDE.md`, and nested ones) and `docs/agents/`.
 
+- **Add a rule**: the task is to add one or a few rules to existing files. Run each rule through the rules above, put it where the Scope rule says, and write it. Stop there.
 - **Revamp**: an instructions file exists. Go to step 3.
 - **Generate**: no instructions file, but the repo has code or docs to explore. Go to step 2.
 - **Interview**: no instructions file and nothing to explore. Ask the user which rules they want, as a numbered list they can answer in one reply. Run each answer through the rules; drop or rewrite what fails and tell the user why. Go to step 4.
