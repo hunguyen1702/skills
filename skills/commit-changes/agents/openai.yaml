@@ -1,0 +1,5 @@
+interface:
+  display_name: "Commit Changes"
+  short_description: "Stage changes into ordered, reviewable commits"
+policy:
+  allow_implicit_invocation: true
