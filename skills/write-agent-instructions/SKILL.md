@@ -1,6 +1,6 @@
 ---
 name: write-agent-instructions
-description: Write or revamp a repo's agent instructions file (AGENTS.md or CLAUDE.md), keeping only rules an agent cannot discover on its own, moving task-specific rules to docs/agents/, and setting up a gitignored local file for machine-specific rules.
+description: Write or revamp a repo's agent instructions file (AGENTS.md or CLAUDE.md).
 disable-model-invocation: true
 ---
 

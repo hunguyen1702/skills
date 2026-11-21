@@ -1,6 +1,7 @@
 ---
 name: skills-npx
-description: Install or remove one or more third-party skills with `npx skills@latest`. Give it sources (repo, URL, `owner/repo@skill`) or just skill names to search for; it confirms the skills, the target agents, and the scope (global, project, or stealth project) before running anything.
+description: Install or remove one or more third-party skills with `npx skills@latest`.
+argument-hint: "<repo | URL | owner/repo@skill | skill name>..."
 disable-model-invocation: true
 ---
 
