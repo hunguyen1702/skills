@@ -39,5 +39,6 @@ Claude Code and Codex cache the plugin by version. After pulling a new version, 
 - [`huh`](skills/huh/SKILL.md): explain again something you did not understand (a hint you give, or the last message), in short, simple words with the project's own terms. User-invoked.
 - [`skill-copycat`](skills/skill-copycat/SKILL.md): steal the distinctive techniques from skills or articles into one digest grouped by source and scope, as context for the session. User-invoked.
 - [`skill-cook`](skills/skill-cook/SKILL.md): create a new skill for Claude Code, Codex, Pi, or any mix, from scaffold to validation. User-invoked.
+- [`skill-writing`](skills/skill-writing/SKILL.md): rules for writing a skill's description, body, and references so it runs predictably on Claude Code, Codex, and Pi. Loaded by `skill-cook` and `skill-taste`, and on its own when you edit a skill.
 - [`skills-npx`](skills/skills-npx/SKILL.md): install or remove one or more third-party skills with `npx skills@latest`, after searching by name if needed and asking for agents and scope (global, project, or stealth project). User-invoked.
 - [`skill-taste`](skills/skill-taste/SKILL.md): edit, improve, and evaluate an existing skill, including output evals and trigger evals on Claude Code and Codex (Pi skills too, without trigger evals). User-invoked.

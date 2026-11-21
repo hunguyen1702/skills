@@ -44,37 +44,7 @@ If the research report shows the scaffold is out of date for an agent, fix the g
 
 ## 5. Write the skill
 
-Replace every placeholder. Follow these standards:
-
-**What earns a line**: every line of the skill costs context each time it loads, so a line stays only if it changes what the agent produces.
-- Assume a capable model. Simple tasks such as reading a file, running a command, or summarising text need no instructions.
-- Leave out anything the model would infer or do anyway. Ask of each line: would a capable agent get this right without it? If yes, cut it.
-- Keep what shapes the result: project-specific facts, non-obvious gotchas, exact commands and formats, and choices the agent would otherwise get wrong.
-- When a fact depends on an external source that goes stale (API fields, CLI flags, schemas, versions), point to the source and tell the agent to look it up instead of copying the fact in.
-
-**Description**: it is the only text an agent sees when deciding to load the skill.
-- Model-invoked: say what the skill does and when to use it, with a boundary for near-miss requests that should not load it. Concrete trigger words beat an exhaustive list.
-- User-invoked: write it for the human choosing the command. Say what it does in a sentence or two.
-- Keep it under 1024 characters.
-
-**Body**:
-- Write steps in the imperative.
-- Explain why a step matters instead of shouting. Reserve absolute language (must, never) for correctness or safety.
-- Keep it as short as the task permits, under 500 lines. Move material needed only on some paths into `references/`. Link each reference from the step that needs it and say when to read it.
-- One source of truth: a fact lives in one file.
-
-**Cross-agent body** (when targeting more than one agent):
-- Describe capabilities instead of tool names. "Ask the user", "use your web search capability".
-- Any step that dispatches a subagent says to start it with a fresh context window. Some agents fork the parent conversation by default.
-- Hand off to another skill with `Load the "<name>" skill`. Do not read another skill's files by path.
-- When Pi is a target, give every step that needs subagents, web search, or a question tool a way to proceed without it, such as doing the work inline. Pi ships only read, bash, edit, and write.
-- When the skill needs always-on behaviour (a Claude Code hook) and Pi is a target, tell the user that Pi needs a matching extension in the package's `extensions/` folder.
-
-**Resources**:
-- `scripts/`: code the agent would otherwise rewrite every run, or steps that must be deterministic.
-- `references/`: docs loaded on demand. Add a table of contents past 300 lines.
-- `assets/`: files used in the output, such as templates and images.
-- No README, changelog, or install guide inside the skill.
+Replace every placeholder. Load the "skill-writing" skill and apply every rule in it to the description, the body, and each reference.
 
 **Agent metadata**: fill each agent's metadata file per the research report. For Codex, `short_description` is a short line for the skill list.
 

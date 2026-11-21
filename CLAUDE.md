@@ -8,12 +8,7 @@ A user-invoked skill (reachable only when the human types its name) sets `disabl
 
 ## Writing skill bodies
 
-Skill bodies must run unchanged on all three agents, so describe behaviour, not one agent's tool names:
-
-- Capabilities like web search or fetching a URL are named as capabilities: "use your web fetch capability to read the docs".
-- To ask the user something, say so and give the question format. Do not name an agent-specific question tool.
-- To hand off to another skill, write `Load the "<name>" skill`. Each agent resolves it its own way: Claude Code through its Skill tool, Codex and Pi by reading the `SKILL.md` path they list in the system prompt. A `/name` mention is Claude Code syntax (Pi uses `/skill:name`, Codex `$name`), and reading another skill's files by relative path breaks once the plugin is copied into an agent's cache.
-- Pi ships only read, bash, edit, and write tools: no subagents, web search, or question tool unless an extension adds them. A step that depends on one of these should still make progress without it, for example by doing the work inline.
+Before writing or editing any skill's text, load the "skill-writing" skill. It holds the writing rules, including how bodies stay portable across all three agents.
 
 ## Pi extensions
 

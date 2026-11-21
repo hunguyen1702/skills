@@ -32,7 +32,11 @@ cp -R <skill-path> ~/.cache/skill-taste/<skill-name>/skill-snapshot
 
 When you need current agent rules, start a subagent with a fresh context window and have it read the official docs or source for that agent. Use the report over memory.
 
-Apply `<skill-taste>/references/improving.md` while editing. When Pi is a target, keep every step working with only read, bash, edit, and write: Pi has no subagents, web search, or question tool unless an extension adds them.
+Load the "skill-writing" skill and apply every rule in it to each line you add or change. When the change answers feedback or a failed eval, also:
+- Fix the cause, not the example: the change should help future prompts, not only the test case.
+- Read transcripts as well as outputs, and remove instructions that cause wasted work.
+- When every run reinvents the same helper or multi-step process, bundle it as a script and say when to use it.
+- Keep a description specific; adding unrelated trigger words to win a test query overfits.
 
 ## 3. Evaluate output quality
 
