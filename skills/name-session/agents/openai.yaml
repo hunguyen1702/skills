@@ -1,0 +1,5 @@
+interface:
+  display_name: "Name Session"
+  short_description: "Name the current session with local Ollama"
+policy:
+  allow_implicit_invocation: false

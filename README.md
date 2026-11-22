@@ -32,6 +32,9 @@ Claude Code and Codex cache the plugin by version. After pulling a new version, 
 
 ## Skills
 
+- [`name-session`](skills/name-session/SKILL.md): name the current Claude Code, Codex, or Pi session with local Ollama and an optional hint. User-invoked.
+- [`namer-service`](skills/namer-service/SKILL.md): check and start the shared Ollama service, and download `qwen2.5:3b` when missing. User-invoked.
+
 - [`gkg`](skills/gkg/SKILL.md): search definitions, find references, and map a repo with the GitLab Knowledge Graph CLI and MCP tools.
 - [`better-talk`](skills/better-talk/SKILL.md): chat replies that answer first, read like a colleague talking, and ask questions you can answer at once, in any language. Always on: plugin hooks load it at session start and reload it if its rules drop out of context; on Pi, `extensions/better-talk.ts` puts its rules in the system prompt.
 - [`dig-in`](skills/dig-in/SKILL.md): dig into a topic at your goal and level, with a scouted map, a proposed output format and writing style, and a fresh researcher per part. User-invoked.

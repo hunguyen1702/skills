@@ -1,0 +1,5 @@
+interface:
+  display_name: "Namer Service"
+  short_description: "Prepare local Ollama for session naming"
+policy:
+  allow_implicit_invocation: false
