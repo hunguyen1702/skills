@@ -1,0 +1,5 @@
+interface:
+  display_name: "Lean Change"
+  short_description: "Change code with the least impact on the codebase"
+policy:
+  allow_implicit_invocation: true
