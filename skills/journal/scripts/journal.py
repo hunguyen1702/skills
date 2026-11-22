@@ -4,13 +4,13 @@
 Commands (run from the repo root; the session id comes from the agent's environment):
   on                          turn logging on for this session
   off                         turn it off; the log stays
-  new --slug SLUG --title T   create journal/<date>-<slug>.md and attach it to this session
+  new --slug SLUG --title T   create .journal-log/<date>-<slug>.md and attach it to this session
   attach --log PATH           attach an existing log to this session (after a handoff)
   list                        list logs with their title and objective
   hook                        UserPromptSubmit hook (Claude Code, Codex): reads JSON on stdin
 
-State lives in <repo>/journal/status.json:
-  {"sessions": {"<session id>": {"active": true, "log": "journal/<file>.md" | null}}}
+State lives in <repo>/.journal-log/status.json:
+  {"sessions": {"<session id>": {"active": true, "log": ".journal-log/<file>.md" | null}}}
 extensions/journal.ts reads the same format for Pi; keep the two in step.
 """
 
@@ -22,7 +22,7 @@ import re
 import sys
 from pathlib import Path
 
-DIR = "journal"
+DIR = ".journal-log"
 SKILL_MD = Path(__file__).resolve().parent.parent / "SKILL.md"
 SCRIPT = Path(__file__).resolve()
 
@@ -67,7 +67,7 @@ def save(root, data):
 
 
 def ensure_dir(root):
-    """Create journal/ and add it to .gitignore the first time."""
+    """Create .journal-log/ and add it to .gitignore the first time."""
     (root / DIR).mkdir(exist_ok=True)
     gitignore = root / ".gitignore"
     text = gitignore.read_text() if gitignore.exists() else ""

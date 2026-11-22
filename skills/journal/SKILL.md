@@ -1,6 +1,6 @@
 ---
 name: journal
-description: Log the session's findings, decisions, and open questions turn by turn into <repo>/journal/. Pass "off" to stop.
+description: Log the session's findings, decisions, and open questions turn by turn into <repo>/.journal-log/. Pass "off" to stop.
 argument-hint: "[off | <log path>]"
 ---
 
@@ -8,7 +8,7 @@ argument-hint: "[off | <log path>]"
 
 Record the session while its full context is still in front of you. A summary written at the end drops the findings and rationale that whoever reads the log later needs, so log each turn as it happens. The session can be of any kind: planning a feature, debugging, researching options, or learning a concept.
 
-`<journal>` below means the folder containing this file. `<script>` means `python3 <journal>/scripts/journal.py`; run it from the repo root. The script records on/off per session in `journal/status.json`, reading the session id from the agent's environment. While logging is on, a hook (on Pi, an extension) adds a reminder to every user message, so logging survives a long session.
+`<journal>` below means the folder containing this file. `<script>` means `python3 <journal>/scripts/journal.py`; run it from the repo root. The script records on/off per session in `.journal-log/status.json`, reading the session id from the agent's environment. While logging is on, a hook (on Pi, an extension) adds a reminder to every user message, so logging survives a long session.
 
 ## When the skill is loaded
 

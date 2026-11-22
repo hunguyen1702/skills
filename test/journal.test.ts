@@ -16,8 +16,8 @@ function agentStartEvent() {
 }
 
 function writeStatus(sessions: Record<string, { active: boolean; log: string | null }>) {
-	mkdirSync(join(root, "journal"), { recursive: true });
-	writeFileSync(join(root, "journal", "status.json"), JSON.stringify({ sessions }));
+	mkdirSync(join(root, ".journal-log"), { recursive: true });
+	writeFileSync(join(root, ".journal-log", "status.json"), JSON.stringify({ sessions }));
 }
 
 async function sectionsFor(session: string) {
@@ -40,8 +40,8 @@ describe("journal extension", () => {
 	});
 
 	it("reminds only the session that turned logging on", async () => {
-		writeStatus({ s1: { active: true, log: "journal/a.md" } });
-		expect((await sectionsFor("s1")).journal).toContain("Log: journal/a.md.");
+		writeStatus({ s1: { active: true, log: ".journal-log/a.md" } });
+		expect((await sectionsFor("s1")).journal).toContain("Log: .journal-log/a.md.");
 		expect(await sectionsFor("s2")).toEqual({});
 	});
 
@@ -51,7 +51,7 @@ describe("journal extension", () => {
 	});
 
 	it("stays silent once logging is off", async () => {
-		writeStatus({ s1: { active: false, log: "journal/a.md" } });
+		writeStatus({ s1: { active: false, log: ".journal-log/a.md" } });
 		expect(await sectionsFor("s1")).toEqual({});
 	});
 });

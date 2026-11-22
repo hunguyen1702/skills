@@ -32,7 +32,7 @@ def hook(root, session="s1"):
 
 
 def status(root):
-    return json.loads((root / "journal" / "status.json").read_text())
+    return json.loads((root / ".journal-log" / "status.json").read_text())
 
 
 with tempfile.TemporaryDirectory() as tmp:
@@ -44,7 +44,7 @@ with tempfile.TemporaryDirectory() as tmp:
 
     # never turned on: silent, creates nothing
     assert hook(root) == ""
-    assert not (root / "journal").exists()
+    assert not (root / ".journal-log").exists()
 
     # no session id in the environment: refuse
     try:
@@ -56,7 +56,7 @@ with tempfile.TemporaryDirectory() as tmp:
     # on: creates the folder, gitignores it once, hook reminds this session only
     run("on")
     run("on")
-    assert (root / ".gitignore").read_text() == "node_modules/\njournal/\n"
+    assert (root / ".gitignore").read_text() == "node_modules/\n.journal-log/\n"
     assert status(root) == {"sessions": {"s1": {"active": True, "log": None}}}
     assert "No log file yet" in hook(root)
     assert hook(root, session="s2") == ""
@@ -69,7 +69,7 @@ with tempfile.TemporaryDirectory() as tmp:
     # new: creates the log from the SKILL.md template and records it
     _, rel = run("new", "--slug", "Auth Choice", "--title", "Chọn auth")
     rel = rel.strip()
-    assert rel.startswith("journal/") and rel.endswith("-auth-choice.md"), rel
+    assert rel.startswith(".journal-log/") and rel.endswith("-auth-choice.md"), rel
     text = (root / rel).read_text()
     assert text.startswith("# Session Notes: Chọn auth\n") and "## Open Questions" in text, text
     assert status(root)["sessions"]["s1"] == {"active": True, "log": rel}

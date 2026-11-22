@@ -1,7 +1,7 @@
 // Pi counterpart of the journal hook in hooks/hooks.json, which runs
 // skills/journal/scripts/journal.py hook. The skill turns logging on and
 // off by running that script, which reads PI_SESSION_ID and writes
-// journal/status.json; this extension only reads that file and adds the
+// .journal-log/status.json; this extension only reads that file and adds the
 // reminder while logging is on. Keep the reminder in step with journal.py.
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -26,7 +26,7 @@ function repoRoot(start: string): string {
 
 function entryFor(root: string, session: string): Entry | undefined {
 	try {
-		return JSON.parse(readFileSync(join(root, "journal", "status.json"), "utf8")).sessions?.[session];
+		return JSON.parse(readFileSync(join(root, ".journal-log", "status.json"), "utf8")).sessions?.[session];
 	} catch {
 		return undefined;
 	}
