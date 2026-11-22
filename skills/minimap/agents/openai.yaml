@@ -1,0 +1,5 @@
+interface:
+  display_name: "Minimap"
+  short_description: "Build or update a home repo that maps your other repos"
+policy:
+  allow_implicit_invocation: false

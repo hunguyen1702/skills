@@ -45,6 +45,7 @@ Claude Code and Codex cache the plugin by version. After pulling a new version, 
 - [`skill-writing`](skills/skill-writing/SKILL.md): rules for writing a skill's description, body, and references so it runs predictably on Claude Code, Codex, and Pi. Loaded by `skill-cook` and `skill-taste`, and on its own when you edit a skill.
 - [`skills-npx`](skills/skills-npx/SKILL.md): install or remove one or more third-party skills with `npx skills@latest`, after searching by name if needed and asking for agents and scope (global, project, or stealth project). User-invoked.
 - [`skill-taste`](skills/skill-taste/SKILL.md): edit, improve, and evaluate an existing skill, including output evals and trigger evals on Claude Code and Codex (Pi skills too, without trigger evals). User-invoked.
+- [`minimap`](skills/minimap/SKILL.md): build or update a home repo, one place to start agent sessions from, that maps your other repos as `{{name}}` placeholders with local paths kept out of git, loads each repo's own rules through a script, and opens each part of the map only when a task reaches it. Inspired by Matt Pocock's [The Home Repo Pattern](https://www.aihero.dev/the-home-repo-pattern). User-invoked; needs `python3`.
 
 ## Credits
 
@@ -55,5 +56,6 @@ These skills stand on the shoulders of great minds. The ideas that shape this re
 | [pstack](https://github.com/cursor/plugins/tree/main/pstack) | Lauren Tan ([@poteto](https://github.com/poteto)) | A rigorous engineering discipline for agents: understand first, verify the result for real, and ship with care. |
 | [caveman](https://github.com/JuliusBrussee/caveman) | Julius Brussee ([@JuliusBrussee](https://github.com/JuliusBrussee)) | The bold insight that fewer tokens often do the trick, and that an agent's words should earn their place. |
 | [skills](https://github.com/mattpocock/skills) | Matt Pocock ([@mattpocock](https://github.com/mattpocock)) | Practical skills for real engineers, written with the clarity of a world-class teacher. |
+| [The Home Repo Pattern](https://www.aihero.dev/the-home-repo-pattern) | Matt Pocock ([@mattpocock](https://github.com/mattpocock)) | One repo to start every session from, with pointers to the rest, the idea behind `minimap`. |
 
 Thank you for sharing your thinking so openly.
