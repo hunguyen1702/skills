@@ -1,0 +1,3 @@
+interface:
+  display_name: "Secretary"
+  short_description: "Log decisions and findings of a session as you go"
