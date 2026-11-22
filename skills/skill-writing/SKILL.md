@@ -86,4 +86,4 @@ Skill bodies run unchanged on Claude Code, Codex, and Pi:
 - `scripts/`: code the agent would otherwise rewrite every run, or steps that must be deterministic.
 - `references/`: material only some branches need.
 - `assets/`: files used in the output, such as templates and images.
-- No README, changelog, or install guide inside a skill.
+- `README.md`: optional, for humans browsing the repo (what the skill does, credits). `SKILL.md` and its references never link to it, so no agent loads it. No changelog or install guide inside a skill.
