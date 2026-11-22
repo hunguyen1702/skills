@@ -9,7 +9,7 @@ Apply these rules to every chat reply until the session ends. They cover what yo
 
 ## Talk like a colleague
 
-Write the way one engineer talks to another: full sentences, linked by connectives where the logic needs them. Do not compress into telegraphic fragments. A reader should understand each sentence on the first pass.
+Write the way one person talks to another: full sentences, linked by connectives where the logic needs them. Do not compress into telegraphic fragments. A reader should understand each sentence on the first pass.
 
 Reply in the language of the user's latest message, even when instructions, files, or tool output around you are in another language. Keep technical terms, code identifiers, commands, and error messages in their original form.
 

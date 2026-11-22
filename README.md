@@ -36,7 +36,7 @@ Claude Code and Codex cache the plugin by version. After pulling a new version, 
 - [`namer-service`](skills/namer-service/SKILL.md): check and start the shared Ollama service, and download `qwen2.5:3b` when missing. User-invoked.
 
 - [`gkg`](skills/gkg/SKILL.md): search definitions, find references, and map a repo with the GitLab Knowledge Graph CLI and MCP tools.
-- [`better-talk`](skills/better-talk/SKILL.md): chat replies that answer first, read like a colleague talking, and ask questions you can answer at once, in any language. Always on: plugin hooks load it at session start and reload it if its rules drop out of context; on Pi, `extensions/better-talk.ts` puts its rules in the system prompt.
+- [`better-talk`](skills/better-talk/SKILL.md): chat replies that answer first, read like one person talking to another, and ask questions you can answer at once, in any language. Always on: plugin hooks load it at session start and reload it if its rules drop out of context; on Pi, `extensions/better-talk.ts` puts its rules in the system prompt.
 - [`dig-in`](skills/dig-in/SKILL.md): dig into a topic at your goal and level, with a scouted map, a proposed output format and writing style, and a fresh researcher per part. User-invoked.
 - [`grilling`](skills/grilling/SKILL.md): interview you in rounds of numbered questions with recommended answers until a plan reaches shared understanding. Copied from mattpocock/skills (MIT).
 - [`write-agent-instructions`](skills/write-agent-instructions/SKILL.md): write or revamp a repo's `AGENTS.md` or `CLAUDE.md`, keeping only undiscoverable rules, moving task-specific ones to `docs/agents/`, and adding a gitignored local rules file. Also loads on its own when an agent adds a rule to these files.
