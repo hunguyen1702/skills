@@ -1,14 +1,14 @@
 ---
-name: secretary
-description: Log the session's findings, decisions, and open questions turn by turn into <repo>/secretary/. Pass "off" to stop.
+name: journal
+description: Log the session's findings, decisions, and open questions turn by turn into <repo>/journal/. Pass "off" to stop.
 argument-hint: "[off | <log path>]"
 ---
 
-# Secretary
+# Journal
 
 Record the session while its full context is still in front of you. A summary written at the end drops the findings and rationale that whoever reads the log later needs, so log each turn as it happens. The session can be of any kind: planning a feature, debugging, researching options, or learning a concept.
 
-`<secretary>` below means the folder containing this file. `<script>` means `python3 <secretary>/scripts/secretary.py`; run it from the repo root. The script records on/off per session in `secretary/status.json`, reading the session id from the agent's environment. While logging is on, a hook (on Pi, an extension) adds a reminder to every user message, so logging survives a long session.
+`<journal>` below means the folder containing this file. `<script>` means `python3 <journal>/scripts/journal.py`; run it from the repo root. The script records on/off per session in `journal/status.json`, reading the session id from the agent's environment. While logging is on, a hook (on Pi, an extension) adds a reminder to every user message, so logging survives a long session.
 
 ## When the skill is loaded
 
@@ -58,4 +58,4 @@ Keep comparison tables as tables. Edit the existing file in place; never rewrite
 
 ## Handoff
 
-When you write a handoff document while logging is on, add to it the log path and an instruction for the next session to trigger the secretary skill and continue that log.
+When you write a handoff document while logging is on, add to it the log path and an instruction for the next session to trigger the journal skill and continue that log.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Self-check for secretary.py. Run: python3 skills/secretary/scripts/test_secretary.py"""
+"""Self-check for journal.py. Run: python3 skills/journal/scripts/test_journal.py"""
 
 import contextlib
 import io
@@ -10,20 +10,20 @@ import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import secretary  # noqa: E402
+import journal  # noqa: E402
 
-for name in secretary.SESSION_ENV:
+for name in journal.SESSION_ENV:
     os.environ.pop(name, None)
 
 
 def run(*argv, stdin=None, session="s1", env="CLAUDE_CODE_SESSION_ID"):
-    for name in secretary.SESSION_ENV:
+    for name in journal.SESSION_ENV:
         os.environ.pop(name, None)
     if session:
         os.environ[env] = session
     out = io.StringIO()
     with contextlib.redirect_stdout(out):
-        code = secretary.main(list(argv), stdin=stdin)
+        code = journal.main(list(argv), stdin=stdin)
     return code, out.getvalue()
 
 
@@ -32,7 +32,7 @@ def hook(root, session="s1"):
 
 
 def status(root):
-    return json.loads((root / "secretary" / "status.json").read_text())
+    return json.loads((root / "journal" / "status.json").read_text())
 
 
 with tempfile.TemporaryDirectory() as tmp:
@@ -44,7 +44,7 @@ with tempfile.TemporaryDirectory() as tmp:
 
     # never turned on: silent, creates nothing
     assert hook(root) == ""
-    assert not (root / "secretary").exists()
+    assert not (root / "journal").exists()
 
     # no session id in the environment: refuse
     try:
@@ -56,7 +56,7 @@ with tempfile.TemporaryDirectory() as tmp:
     # on: creates the folder, gitignores it once, hook reminds this session only
     run("on")
     run("on")
-    assert (root / ".gitignore").read_text() == "node_modules/\nsecretary/\n"
+    assert (root / ".gitignore").read_text() == "node_modules/\njournal/\n"
     assert status(root) == {"sessions": {"s1": {"active": True, "log": None}}}
     assert "No log file yet" in hook(root)
     assert hook(root, session="s2") == ""
@@ -69,7 +69,7 @@ with tempfile.TemporaryDirectory() as tmp:
     # new: creates the log from the SKILL.md template and records it
     _, rel = run("new", "--slug", "Auth Choice", "--title", "Chọn auth")
     rel = rel.strip()
-    assert rel.startswith("secretary/") and rel.endswith("-auth-choice.md"), rel
+    assert rel.startswith("journal/") and rel.endswith("-auth-choice.md"), rel
     text = (root / rel).read_text()
     assert text.startswith("# Session Notes: Chọn auth\n") and "## Open Questions" in text, text
     assert status(root)["sessions"]["s1"] == {"active": True, "log": rel}

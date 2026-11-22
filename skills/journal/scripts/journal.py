@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""File and status handling for the secretary skill. The agent writes log content itself.
+"""File and status handling for the journal skill. The agent writes log content itself.
 
 Commands (run from the repo root; the session id comes from the agent's environment):
   on                          turn logging on for this session
   off                         turn it off; the log stays
-  new --slug SLUG --title T   create secretary/<date>-<slug>.md and attach it to this session
+  new --slug SLUG --title T   create journal/<date>-<slug>.md and attach it to this session
   attach --log PATH           attach an existing log to this session (after a handoff)
   list                        list logs with their title and objective
   hook                        UserPromptSubmit hook (Claude Code, Codex): reads JSON on stdin
 
-State lives in <repo>/secretary/status.json:
-  {"sessions": {"<session id>": {"active": true, "log": "secretary/<file>.md" | null}}}
-extensions/secretary.ts reads the same format for Pi; keep the two in step.
+State lives in <repo>/journal/status.json:
+  {"sessions": {"<session id>": {"active": true, "log": "journal/<file>.md" | null}}}
+extensions/journal.ts reads the same format for Pi; keep the two in step.
 """
 
 import argparse
@@ -22,7 +22,7 @@ import re
 import sys
 from pathlib import Path
 
-DIR = "secretary"
+DIR = "journal"
 SKILL_MD = Path(__file__).resolve().parent.parent / "SKILL.md"
 SCRIPT = Path(__file__).resolve()
 
@@ -67,7 +67,7 @@ def save(root, data):
 
 
 def ensure_dir(root):
-    """Create secretary/ and add it to .gitignore the first time."""
+    """Create journal/ and add it to .gitignore the first time."""
     (root / DIR).mkdir(exist_ok=True)
     gitignore = root / ".gitignore"
     text = gitignore.read_text() if gitignore.exists() else ""
@@ -101,9 +101,9 @@ def reminder(entry):
     else:
         where = (f"No log file yet. When there is something to record, create it with "
                  f"`python3 {SCRIPT} new --slug <english-slug> --title <title>`.")
-    return (f"secretary is active. After replying to each user message, update the log as "
+    return (f"journal is active. After replying to each user message, update the log as "
             f"{SKILL_MD} describes. {where} If you are writing a handoff document, add to it: "
-            f"trigger the secretary skill in the new session and continue the log at {log or '<log path>'}.")
+            f"trigger the journal skill in the new session and continue the log at {log or '<log path>'}.")
 
 
 def hook(stdin):
@@ -188,10 +188,10 @@ def main(argv=None, stdin=None):
     root = repo_root(os.getcwd())
     if args.cmd == "on":
         entry = update(root, session_id(), active=True)
-        print(f"secretary on. Log: {entry['log'] or 'none yet'}")
+        print(f"journal on. Log: {entry['log'] or 'none yet'}")
     elif args.cmd == "off":
         entry = update(root, session_id(), active=False)
-        print(f"secretary off. Log: {entry['log'] or 'none'}")
+        print(f"journal off. Log: {entry['log'] or 'none'}")
     elif args.cmd == "new":
         print(cmd_new(root, args.slug, args.title))
     elif args.cmd == "attach":
