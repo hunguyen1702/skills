@@ -13,7 +13,7 @@ A **home repo** is a git repo that holds no product code. Its `AGENTS.md` maps t
 
 ## Rules for every branch
 
-- Never write to a child repo: no files, branches, or commits. Child repos may belong to a company and follow their own rules; the home repo only reads them.
+- Never write to a child repo: no files, branches, or commits. Child repos may belong to a company and follow their own rules; the home repo only reads them. The one exception is `minimap.py prepare`, which stashes a child repo's changes and checks out its latest default branch for a survey; every prepared repo must get `minimap.py restore` before you report.
 - Never write a local path into a tracked file. Name a child repo with its **placeholder** `{{name}}`. Paths live in `repos.local`, which git ignores. Remotes live in `repos.example`, which git tracks. `minimap.py set` and `remove` are the only writers of both files.
 - Never read `.env` files or other secrets in any repo.
 - Change no file until the user approves the draft that change belongs to. Show drafts in chat.

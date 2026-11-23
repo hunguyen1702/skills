@@ -29,7 +29,7 @@ On Codex, call it as `$minimap`; on Pi, as `/skill:minimap`.
 
 - Docs name repos as `{{name}}` placeholders, never by path. A pre-commit hook (`minimap.py check-paths`) blocks commits that contain local paths.
 - Before touching a repo, the agent runs `minimap.py load <name>`. It prints the repo's own instruction files between `=== {{name}} instructions ===` delimiters, so repo rules (a company's, for example) apply in their scope. Rules in the home `AGENTS.md` win on conflict, with a `Warning:` line.
-- The skill only reads child repos; it never writes to them.
+- The skill only reads child repos; it never writes to them. To survey the latest code, it fetches each child repo, stashes its changes, checks out the remote default branch, and puts the repo back as it was when the survey ends.
 - On a new machine, `python3 .minimap/bin/minimap.py init-paths` fills `repos.local`, and `--root <dir> --clone` clones the missing repos.
 
 Needs `python3` and `git`.

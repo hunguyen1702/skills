@@ -18,6 +18,9 @@ Subcommands:
                                 fill repos.local from repos.example
   load NAME                     print a repo's instruction files
   check-paths [--all]           fail if a tracked change holds a local path
+  prepare PATH                  stash a child repo's changes and check out the
+                                latest origin default branch (detached)
+  restore PATH                  return a prepared child repo to its prior state
 """
 
 import argparse
@@ -373,6 +376,86 @@ def cmd_check_paths(a):
     print("no local paths found")
 
 
+# ---------- prepare / restore ----------
+
+RESTORE_FILE = "minimap-restore"
+STASH_PREFIX = "minimap: stash + checkout master to build minimap"
+IN_PROGRESS = ["rebase-merge", "rebase-apply", "MERGE_HEAD", "CHERRY_PICK_HEAD",
+               "REVERT_HEAD", "BISECT_LOG"]
+
+
+def restore_path(repo):
+    p = git("rev-parse", "--git-path", RESTORE_FILE, cwd=repo)
+    return (repo / p) if p else None
+
+
+def cmd_prepare(a):
+    repo = expand(a.path).resolve()
+
+    def skip(reason):
+        print(f"skipped\t{repo}\t{reason}; survey the current state")
+
+    if git("rev-parse", "--show-toplevel", cwd=repo) is None:
+        return skip("not a git repo")
+    marker = restore_path(repo)
+    if marker.exists():
+        return skip(f"already prepared; run restore first ({marker})")
+    for f in IN_PROGRESS:
+        if (repo / git("rev-parse", "--git-path", f, cwd=repo)).exists():
+            return skip(f"operation in progress ({f})")
+    orig = git("symbolic-ref", "--short", "-q", "HEAD", cwd=repo) or git("rev-parse", "--verify", "-q", "HEAD", cwd=repo)
+    if not orig or git("rev-parse", "--verify", "-q", "HEAD", cwd=repo) is None:
+        return skip("no commits")
+    if git("remote", "get-url", "origin", cwd=repo) is None:
+        return skip("no origin remote")
+    if git("fetch", "-q", "origin", cwd=repo) is None:
+        return skip("git fetch origin failed")
+    default = git("symbolic-ref", "--short", "-q", "refs/remotes/origin/HEAD", cwd=repo)
+    if not default and git("rev-parse", "--verify", "-q", "refs/remotes/origin/master", cwd=repo):
+        default = "origin/master"
+    if not default:
+        return skip("cannot find origin default branch")
+    stash = ""
+    if git("status", "--porcelain", cwd=repo):
+        if git("stash", "push", "-q", "--include-untracked", "-m", f"{STASH_PREFIX} (from {orig})", cwd=repo) is None:
+            return skip("git stash failed")
+        stash = git("rev-parse", "stash@{0}", cwd=repo)
+    marker.write_text(f"ref: {orig}\nstash: {stash}\n")
+    if git("checkout", "-q", "--detach", default, cwd=repo) is None:
+        _restore(repo, marker)
+        return skip(f"checkout {default} failed; restored")
+    print(f"prepared\t{repo}\t{default}\tfrom {orig}\t{'stashed' if stash else 'clean'}")
+
+
+def _restore(repo, marker):
+    state = read_map(marker)
+    ref, stash = state.get("ref", ""), state.get("stash", "")
+    if git("checkout", "-q", ref, cwd=repo) is None:
+        die(f"{repo}: checkout {ref} failed; fix by hand, then delete {marker}")
+    marker.unlink()
+    if not stash:
+        return "clean"
+    listed = (git("stash", "list", "--format=%gd %H", cwd=repo) or "").splitlines()
+    sel = next((line.split()[0] for line in listed if line.endswith(" " + stash)), None)
+    if not sel:
+        die(f"{repo}: back on {ref}, but stash {stash} is gone; check `git stash list`")
+    r = subprocess.run(["git", "stash", "pop", "-q", "--index", sel], cwd=repo, capture_output=True, text=True)
+    if r.returncode != 0:
+        die(f"{repo}: back on {ref}, but `git stash pop --index {sel}` failed; the stash is kept "
+            f"({stash}). Resolve it by hand.\n{r.stderr.strip()}")
+    return "unstashed"
+
+
+def cmd_restore(a):
+    repo = expand(a.path).resolve()
+    marker = restore_path(repo) if git("rev-parse", "--show-toplevel", cwd=repo) else None
+    if not marker or not marker.exists():
+        print(f"nothing\t{repo}\tnot prepared")
+        return
+    ref = read_map(marker).get("ref", "")
+    print(f"restored\t{repo}\t{ref}\t{_restore(repo, marker)}")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="minimap.py", description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -389,6 +472,8 @@ def main(argv=None):
     s = sub.add_parser("load"); s.add_argument("name"); s.set_defaults(fn=cmd_load)
     s = sub.add_parser("check-paths"); s.add_argument("--all", action="store_true")
     s.set_defaults(fn=cmd_check_paths)
+    s = sub.add_parser("prepare"); s.add_argument("path"); s.set_defaults(fn=cmd_prepare)
+    s = sub.add_parser("restore"); s.add_argument("path"); s.set_defaults(fn=cmd_restore)
     a = ap.parse_args(argv)
     a.fn(a)
 
