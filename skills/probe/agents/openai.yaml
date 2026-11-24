@@ -1,0 +1,3 @@
+interface:
+  display_name: "Probe"
+  short_description: "Verify a design idea with a throwaway prototype"
