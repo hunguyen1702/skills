@@ -24,6 +24,8 @@ Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so th
 
 Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here, not inside four parallel sub-agents.
 
+**PR without checkout**: when the user names a GitHub PR and wants it reviewed without checking it out, the diff command is `gh pr diff <pr>` and the commit list comes from `gh pr view <pr> --json commits,headRefOid`. The local checkout may not match the PR, so tell every sub-agent to read code outside the diff at the PR head (`gh api "repos/{owner}/{repo}/contents/<path>?ref=<headRefOid>"`), not from local files. Confirm the diff is non-empty before going further.
+
 ### 2. Identify the spec source
 
 Look for the originating spec, in this order:
@@ -137,6 +139,7 @@ The `file:L<n>` location serves this chat report. When findings are later posted
 
 Every finding:
 
+- Starts with its location: the repo-relative path and the line number in the new version of the file (`file:L<n>`, or `file:L<a>-L<b>` for a range), so it can be posted as an inline PR comment. A finding about a removed line uses the old line number and says `(removed)`. A finding with no single place, such as a missing requirement, names the file it belongs in, or `general` when there is none.
 - Names a concrete case: the input or situation that leads to the wrong result. With no case, drop the finding or turn it into ❓.
 - Is confirmed against the code: the caller exists, the value can really be empty, the code really is unused.
 - Names exact symbols in backticks and gives a concrete fix. Propose the smallest fix that works, and prefer one that deletes code.
