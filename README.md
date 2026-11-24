@@ -96,6 +96,7 @@ These skills stand on the shoulders of great minds. The ideas that shape this re
 | [caveman](https://github.com/JuliusBrussee/caveman) | Julius Brussee ([@JuliusBrussee](https://github.com/JuliusBrussee)) | The bold insight that fewer tokens often do the trick, and that an agent's words should earn their place. |
 | [skills](https://github.com/mattpocock/skills) | Matt Pocock ([@mattpocock](https://github.com/mattpocock)) | Practical skills for real engineers, written with the clarity of a world-class teacher. |
 | [ponytail](https://github.com/DietrichGebert/ponytail) | Dietrich Gebert ([@DietrichGebert](https://github.com/DietrichGebert)) | A lazy senior developer's mindset: solve the whole problem with the least new code, the idea behind `lean-change`. |
+| [developer-kit](https://github.com/giuseppe-trisciuoglio/developer-kit) | Giuseppe Trisciuoglio ([@giuseppe-trisciuoglio](https://github.com/giuseppe-trisciuoglio)) | Review findings posted as inline PR comments, each checked against the diff before it goes out, the idea behind `pr-review-comments` and `review-pr`. |
 | [The Home Repo Pattern](https://www.aihero.dev/the-home-repo-pattern) | Matt Pocock ([@mattpocock](https://github.com/mattpocock)) | One repo to start every session from, with pointers to the rest, the idea behind `minimap`. |
 
 Thank you for sharing your thinking so openly.
