@@ -28,6 +28,14 @@ class NamerTests(unittest.TestCase):
         ])
         self.assertEqual(namer.digest("claude", self.path), "user: Build a namer\nassistant: Done")
 
+    def test_slash_commands_in_either_tag_order(self):
+        self.write([
+            {"type": "user", "message": {"role": "user", "content": "<command-name>/clear</command-name>\n<command-message>clear</command-message>\n<command-args></command-args>"}},
+            {"type": "user", "message": {"role": "user", "content": "<command-name>/scout</command-name>\n<command-message>scout</command-message>\n<command-args>Ollama context limits</command-args>"}},
+            {"type": "user", "message": {"role": "user", "content": "<command-message>pr</command-message>\n<command-name>/pr</command-name>"}},
+        ])
+        self.assertEqual(namer.digest("claude", self.path), "user: /scout Ollama context limits\nuser: /pr")
+
     def test_all_agent_formats(self):
         for agent, entry in [
             ("codex", {"type": "response_item", "payload": {"type": "message", "role": "user", "content": [{"type": "input_text", "text": "Fix login"}]}}),

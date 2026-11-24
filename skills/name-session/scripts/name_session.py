@@ -86,13 +86,29 @@ def text_content(content):
                      and b.get("type") in ("text", "input_text", "output_text"))
 
 
+SESSION_COMMANDS = {"/clear", "/compact", "/exit", "/fast", "/model", "/resume"}
+
+
+def slash_command(text):
+    # Claude Code records a slash command as tags, in either order; keep it as "/name args".
+    name = re.search(r"<command-name>(.*?)</command-name>", text, flags=re.S)
+    if not name:
+        return ""
+    name = name.group(1).strip()
+    if name in SESSION_COMMANDS:
+        return ""
+    args = re.search(r"<command-args>(.*?)</command-args>", text, flags=re.S)
+    return " ".join(f"{name} {args.group(1) if args else ''}".split())
+
+
 def clean_text(text):
+    if text.lstrip().startswith(("<command-name>", "<command-message>")):
+        return slash_command(text)
     # Remove known injected wrappers, not arbitrary user text starting with '<'.
     tags = r"system-reminder|instructions|environment_context|local-command-stdout|local-command-stderr|local-command-caveat|agent-message"
     text = re.sub(rf"<({tags})\b[^>]*>.*?</\1>", "", text, flags=re.S)
     if text.lstrip().startswith(("# AGENTS.md instructions", "<skills_instructions>",
-                                "Base directory for this skill:", "<command-name>",
-                                "<bash-input>", "<task-notification>")):
+                                "Base directory for this skill:", "<bash-input>", "<task-notification>")):
         return ""
     text = re.sub(r"```.*?```", " [code omitted] ", text, flags=re.S)
     return " ".join(text.split())
