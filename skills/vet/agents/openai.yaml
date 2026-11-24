@@ -1,0 +1,5 @@
+interface:
+  display_name: "Vet"
+  short_description: "Verify a point against docs and this project's versions"
+policy:
+  allow_implicit_invocation: false
