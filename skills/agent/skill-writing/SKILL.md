@@ -5,7 +5,7 @@ description: Rules for writing the text of an agent skill (its description, SKIL
 
 # Skill Writing
 
-These rules govern the text an agent reads when it runs a skill. A good skill defines its concepts, guides the agent's judgment, and constrains the outcome, not the process. Before calling a draft done, check every line against every section below.
+These rules govern the text an agent reads when it runs a skill. A good skill makes the agent take the same *process* every run, not produce the same output. Before calling a draft done, check every line against every section below.
 
 ## The description is a context pointer
 
