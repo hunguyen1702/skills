@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Self-check for minimap.py. Run: python3 skills/minimap/scripts/test_minimap.py"""
+"""Self-check for minimap.py. Run: python3 skills/productivity/minimap/scripts/test_minimap.py"""
 
 import os
 import subprocess

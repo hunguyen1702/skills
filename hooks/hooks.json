@@ -22,7 +22,7 @@
           },
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/skills/journal/scripts/journal.py\" hook",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/skills/productivity/journal/scripts/journal.py\" hook",
             "timeout": 5
           }
         ]

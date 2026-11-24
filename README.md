@@ -32,27 +32,47 @@ Claude Code and Codex cache the plugin by version. After pulling a new version, 
 
 ## Skills
 
-- [`name-session`](skills/name-session/SKILL.md): name the current Claude Code, Codex, or Pi session with local Ollama and an optional hint. User-invoked.
-- [`namer-service`](skills/namer-service/SKILL.md): check and start the shared Ollama service, and download `qwen2.5:3b` when missing. User-invoked.
+Skills live in `skills/<category>/<skill>/`. Claude Code and Codex find them through the `skills` paths in `.claude-plugin/plugin.json`, so a new category needs a new path there. Pi finds them on its own.
 
-- [`gkg`](skills/gkg/SKILL.md): search definitions, find references, and map a repo with the GitLab Knowledge Graph CLI and MCP tools.
-- [`better-talk`](skills/better-talk/SKILL.md): chat replies that answer first, read like one person talking to another, and ask questions you can answer at once, in any language. Always on: plugin hooks load it at session start and reload it if its rules drop out of context; on Pi, `extensions/better-talk.ts` puts its rules in the system prompt.
-- [`dig-in`](skills/dig-in/SKILL.md): dig into a topic at your goal and level, with a scouted map, a proposed output format and writing style, and a fresh researcher per part. User-invoked.
-- [`grilling`](skills/grilling/SKILL.md): interview you in rounds of numbered questions with recommended answers until a plan reaches shared understanding. Copied from mattpocock/skills (MIT).
-- [`write-agent-instructions`](skills/write-agent-instructions/SKILL.md): write or revamp a repo's `AGENTS.md` or `CLAUDE.md`, keeping only undiscoverable rules, moving task-specific ones to `docs/agents/`, and adding a gitignored local rules file. Also loads on its own when an agent adds a rule to these files.
-- [`journal`](skills/journal/SKILL.md): log any session (planning, debugging, research, learning) turn by turn into a gitignored `<repo>/.journal-log/` file, recording findings, your decisions, and open questions, and carry the log across handoffs. Pass `off` to stop. While it is on, a plugin hook (on Pi, `extensions/journal.ts`) reminds the agent each turn. Needs `python3`. On Codex, trust the plugin hook in `/hooks` first.
-- [`commit-changes`](skills/commit-changes/SKILL.md): group the current changes into ordered, reviewable commits, stage them, and write Conventional Commits messages in English. Loads on its own when you or the agent are about to commit.
-- [`huh`](skills/huh/SKILL.md): explain again something you did not understand (a hint you give, or the last message), in short, simple words with the project's own terms. User-invoked.
-- [`skill-copycat`](skills/skill-copycat/SKILL.md): steal the distinctive techniques from skills or articles into one digest grouped by source and scope, as context for the session. User-invoked.
-- [`skill-cook`](skills/skill-cook/SKILL.md): create a new skill for Claude Code, Codex, Pi, or any mix, from scaffold to validation. User-invoked.
-- [`skill-writing`](skills/skill-writing/SKILL.md): rules for writing a skill's description, body, and references so it runs predictably on Claude Code, Codex, and Pi. Loaded by `skill-cook` and `skill-taste`, and on its own when you edit a skill.
-- [`skills-npx`](skills/skills-npx/SKILL.md): install or remove one or more third-party skills with `npx skills@latest`, after searching by name if needed and asking for agents and scope (global, project, or stealth project). User-invoked.
-- [`skill-taste`](skills/skill-taste/SKILL.md): edit, improve, and evaluate an existing skill, including output evals and trigger evals on Claude Code and Codex (Pi skills too, without trigger evals). User-invoked.
-- [`lean-change`](skills/lean-change/SKILL.md): change code for a task with the least impact on the codebase: reach every place the change touches, prefer the option with the smallest blast radius, reuse before writing new code, and add no speculative abstractions. Loads on its own when an agent implements, fixes, or refactors code. Adapted from [ponytail](https://github.com/DietrichGebert/ponytail) (MIT).
-- [`scout`](skills/scout/SKILL.md): research a question against primary sources in a background agent and save the cited findings as a Markdown file in the repo. Copied from mattpocock/skills (MIT), renamed from `research`.
-- [`vet`](skills/vet/SKILL.md): verify a point from the conversation against current standards and best practices, fitted to the project's versions and code, through a `scout` subagent. User-invoked.
-- [`probe`](skills/probe/SKILL.md): verify a design idea with a throwaway prototype built in its own worktree: a logic demo (a shareable HTML file or a runner inside the repo), UI variants on one route, or a spike that checks one or several third-party APIs or libraries against the current codebase; databases only as a cloned copy, and a Markdown report committed with the prototype to a pushed throwaway branch. Adapted from mattpocock/skills `prototype` (MIT).
-- [`minimap`](skills/minimap/SKILL.md): build or update a home repo, one place to start agent sessions from, that maps your other repos as `{{name}}` placeholders with local paths kept out of git, loads each repo's own rules through a script, and opens each part of the map only when a task reaches it. Inspired by Matt Pocock's [The Home Repo Pattern](https://www.aihero.dev/the-home-repo-pattern). User-invoked; needs `python3`.
+### Agent
+
+Build, edit, and evaluate skills, and write agent instructions.
+
+- [`skill-cook`](skills/agent/skill-cook/SKILL.md): create a new skill for Claude Code, Codex, Pi, or any mix, from scaffold to validation. User-invoked.
+- [`skill-copycat`](skills/agent/skill-copycat/SKILL.md): steal the distinctive techniques from skills or articles into one digest grouped by source and scope, as context for the session. User-invoked.
+- [`skill-taste`](skills/agent/skill-taste/SKILL.md): edit, improve, and evaluate an existing skill, including output evals and trigger evals on Claude Code and Codex (Pi skills too, without trigger evals). User-invoked.
+- [`skill-writing`](skills/agent/skill-writing/SKILL.md): rules for writing a skill's description, body, and references so it runs predictably on Claude Code, Codex, and Pi. Loaded by `skill-cook` and `skill-taste`, and on its own when you edit a skill.
+- [`write-agent-instructions`](skills/agent/write-agent-instructions/SKILL.md): write or revamp a repo's `AGENTS.md` or `CLAUDE.md`, keeping only undiscoverable rules, moving task-specific ones to `docs/agents/`, and adding a gitignored local rules file. Also loads on its own when an agent adds a rule to these files.
+
+### Engineering
+
+Research, plan, verify, and ship code changes.
+
+- [`commit-changes`](skills/engineering/commit-changes/SKILL.md): group the current changes into ordered, reviewable commits, stage them, and write Conventional Commits messages in English. Loads on its own when you or the agent are about to commit.
+- [`grilling`](skills/engineering/grilling/SKILL.md): interview you in rounds of numbered questions with recommended answers until a plan reaches shared understanding. Copied from mattpocock/skills (MIT).
+- [`lean-change`](skills/engineering/lean-change/SKILL.md): change code for a task with the least impact on the codebase: reach every place the change touches, prefer the option with the smallest blast radius, reuse before writing new code, and add no speculative abstractions. Loads on its own when an agent implements, fixes, or refactors code. Adapted from [ponytail](https://github.com/DietrichGebert/ponytail) (MIT).
+- [`probe`](skills/engineering/probe/SKILL.md): verify a design idea with a throwaway prototype built in its own worktree: a logic demo (a shareable HTML file or a runner inside the repo), UI variants on one route, or a spike that checks one or several third-party APIs or libraries against the current codebase; databases only as a cloned copy, and a Markdown report committed with the prototype to a pushed throwaway branch. Adapted from mattpocock/skills `prototype` (MIT).
+- [`scout`](skills/engineering/scout/SKILL.md): research a question against primary sources in a background agent and save the cited findings as a Markdown file in the repo. Copied from mattpocock/skills (MIT), renamed from `research`.
+- [`vet`](skills/engineering/vet/SKILL.md): verify a point from the conversation against current standards and best practices, fitted to the project's versions and code, through a `scout` subagent. User-invoked.
+
+### Productivity
+
+How sessions talk, log, get named, and find your other repos.
+
+- [`better-talk`](skills/productivity/better-talk/SKILL.md): chat replies that answer first, read like one person talking to another, and ask questions you can answer at once, in any language. Always on: plugin hooks load it at session start and reload it if its rules drop out of context; on Pi, `extensions/better-talk.ts` puts its rules in the system prompt.
+- [`dig-in`](skills/productivity/dig-in/SKILL.md): dig into a topic at your goal and level, with a scouted map, a proposed output format and writing style, and a fresh researcher per part. User-invoked.
+- [`huh`](skills/productivity/huh/SKILL.md): explain again something you did not understand (a hint you give, or the last message), in short, simple words with the project's own terms. User-invoked.
+- [`journal`](skills/productivity/journal/SKILL.md): log any session (planning, debugging, research, learning) turn by turn into a gitignored `<repo>/.journal-log/` file, recording findings, your decisions, and open questions, and carry the log across handoffs. Pass `off` to stop. While it is on, a plugin hook (on Pi, `extensions/journal.ts`) reminds the agent each turn. Needs `python3`. On Codex, trust the plugin hook in `/hooks` first.
+- [`minimap`](skills/productivity/minimap/SKILL.md): build or update a home repo, one place to start agent sessions from, that maps your other repos as `{{name}}` placeholders with local paths kept out of git, loads each repo's own rules through a script, and opens each part of the map only when a task reaches it. Inspired by Matt Pocock's [The Home Repo Pattern](https://www.aihero.dev/the-home-repo-pattern). User-invoked; needs `python3`.
+- [`name-session`](skills/productivity/name-session/SKILL.md): name the current Claude Code, Codex, or Pi session with local Ollama and an optional hint. User-invoked.
+- [`namer-service`](skills/productivity/namer-service/SKILL.md): check and start the shared Ollama service, and download `qwen2.5:3b` when missing. User-invoked.
+
+### Tooling
+
+Wrappers around specific CLIs and services.
+
+- [`gkg`](skills/tooling/gkg/SKILL.md): search definitions, find references, and map a repo with the GitLab Knowledge Graph CLI and MCP tools.
+- [`skills-npx`](skills/tooling/skills-npx/SKILL.md): install or remove one or more third-party skills with `npx skills@latest`, after searching by name if needed and asking for agents and scope (global, project, or stealth project). User-invoked.
 
 ## Credits
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Self-check for journal.py. Run: python3 skills/journal/scripts/test_journal.py"""
+"""Self-check for journal.py. Run: python3 skills/productivity/journal/scripts/test_journal.py"""
 
 import contextlib
 import io

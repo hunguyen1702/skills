@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import betterTalk from "../extensions/better-talk.js";
 import { mockPi } from "./helpers/mock-pi.js";
 
-const skill = readFileSync(new URL("../skills/better-talk/SKILL.md", import.meta.url), "utf8");
+const skill = readFileSync(new URL("../skills/productivity/better-talk/SKILL.md", import.meta.url), "utf8");
 
 function agentStartEvent() {
 	return { systemPromptOptions: { sections: {} as Record<string, string> } };

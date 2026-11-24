@@ -2,6 +2,8 @@ This repo is the set of skills I use in daily work, currently mostly for softwar
 
 ## Skill files
 
+Skills are grouped into category folders under `skills/`. Claude Code finds only skills listed through the `skills` paths in `.claude-plugin/plugin.json`, and Codex reads the same field, so a new category folder needs its own entry there; without it, the skill loads on Pi but silently goes missing on the other two.
+
 Every skill has a `SKILL.md` and an `agents/openai.yaml` (Codex metadata). Pi reads only `SKILL.md`. All three schemas still change, so look up the current fields in each agent's skill docs instead of copying an older skill.
 
 A user-invoked skill (reachable only when the human types its name) sets `disable-model-invocation: true` in `SKILL.md` and `policy.allow_implicit_invocation: false` in `agents/openai.yaml`. Set both or neither: with only one, the skill stays auto-invocable in the other agent without any error. Pi honours the same `disable-model-invocation` key as Claude Code.

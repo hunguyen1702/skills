@@ -1,5 +1,5 @@
 // Pi counterpart of the journal hook in hooks/hooks.json, which runs
-// skills/journal/scripts/journal.py hook. The skill turns logging on and
+// skills/productivity/journal/scripts/journal.py hook. The skill turns logging on and
 // off by running that script, which reads PI_SESSION_ID and writes
 // .journal-log/status.json; this extension only reads that file and adds the
 // reminder while logging is on. Keep the reminder in step with journal.py.
@@ -8,7 +8,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
-const skillDir = join(dirname(fileURLToPath(import.meta.url)), "..", "skills", "journal");
+const skillDir = join(dirname(fileURLToPath(import.meta.url)), "..", "skills", "productivity", "journal");
 const skillMd = join(skillDir, "SKILL.md");
 const script = join(skillDir, "scripts", "journal.py");
 
