@@ -1,0 +1,3 @@
+interface:
+  display_name: "Design Contracts"
+  short_description: "Settle contracts at seams that slices share"
