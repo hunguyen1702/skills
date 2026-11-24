@@ -1,4 +1,4 @@
-Adapted from https://github.com/mattpocock/skills (skills/engineering/to-spec): points to setup-hungnguyen-skills instead of setup-matt-pocock-skills.
+Adapted from https://github.com/mattpocock/skills (skills/engineering/to-spec): points to setup-hungnguyen-skills instead of setup-matt-pocock-skills, and the Implementation Decisions list adds shared-seam contracts, invariant owners, and decisions left to implementation.
 
 MIT License
 

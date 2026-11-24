@@ -51,6 +51,9 @@ A list of implementation decisions that were made. This can include:
 - Schema changes
 - API contracts
 - Specific interactions
+- Contracts at seams that more than one slice or module relies on: failure semantics, and what each caller can count on afterwards
+- Which module owns each domain invariant, and how it is enforced
+- Decisions deliberately left to implementation, so the implementer knows they are theirs to make
 
 Do NOT include specific file paths or code snippets. They may end up being outdated very quickly.
 
