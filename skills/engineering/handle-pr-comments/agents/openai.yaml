@@ -1,0 +1,5 @@
+interface:
+  display_name: "Handle PR Comments"
+  short_description: "Judge, fix, reply to, and resolve review comments on your PR"
+policy:
+  allow_implicit_invocation: true
